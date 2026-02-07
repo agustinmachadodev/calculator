@@ -22,7 +22,7 @@ body {
 
 
 .calculator {
-    background: linear-gradient(341deg,rgba(91, 161, 201, 1) 0%, rgba(162, 197, 217, 1) 19%, rgba(247, 247, 247, 1) 53%);
+    background: linear-gradient(341deg,rgba(91, 161, 201, 1) 0%, rgb(152, 199, 227) 19%, rgb(238, 234, 234) 53%);
     margin: 10rem auto;
     border: 1px solid black;
     width: 28rem;
@@ -34,8 +34,9 @@ body {
 }
 
 .display {
-    padding: 7rem;
-    margin-bottom: 4rem;
+    padding: 7rem; 
+    margin-bottom: 2rem;
+    position: relative;
 }
 
 .btn-container {
@@ -46,12 +47,18 @@ body {
     padding: 1.5rem;
 }
 
-.btn {
+.numBtn, 
+.operatorBtn {
     padding: 1.5rem;
     
 }
 
-.btn, 
+.btn-small {
+    padding: .5rem 0;
+}
+
+.numBtn, 
+.operatorBtn,
 .btn-small {
     border: none;
     border-radius: 1.2rem;
@@ -62,21 +69,53 @@ body {
     font-size: 1.7rem;
 }
 
-.btn:hover,
+.numBtn:hover,
+.operatorBtn:hover,
 .btn-small:hover{
     cursor: pointer;
     background-color: rgb(13, 130, 208);
     color: #fff;
 }
 
-
-.btn-large {
-    background-color: rgb(13, 130, 208);
-    color: #fff;
+.equal {
+    
     grid-row: span 2;
 }
 
-.btn-large:hover {
-    background-color: rgb(8, 98, 158);
+.equal,
+.operatorBtn {
+    background-color: rgb(13, 130, 208);
+    color: #fff;
 }
 
+.dotBtn {
+    background-color: transparent;
+    color: rgb(94, 123, 144);
+}
+
+.equal:hover,
+.operatorBtn:hover {
+    background-color: rgb(8, 88, 141);
+}
+
+.deleteBtn {
+    background-color: transparent;
+    color: rgb(169, 21, 21);
+}
+
+.deleteBtn:hover {
+    background-color: rgb(169, 21, 21);
+}
+
+.display-content{
+    position: absolute;
+    font-size: 3.5rem;
+    bottom: -1rem;
+    right: 3rem;
+}
+
+.display-content h1 {
+    font-weight: 500;
+    color: rgb(64, 84, 99);
+
+}
