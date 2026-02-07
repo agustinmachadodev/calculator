@@ -5,9 +5,14 @@ const substractBtn = document.querySelector('.substract')
 const multiplyBtn = document.querySelector('.multiply')
 const divideBtn = document.querySelector('.divide');
 
+const display = document.querySelector('h1');
+display.textContent = 0;
+
 const equalBtn = document.querySelector('.equal');
 
-const display = document.querySelector('h1');
+const restartBtn = document.querySelector('.restart');
+
+const deleteBtn = document.querySelector('.deleteBtn');
 
 let operator = '';
 
@@ -62,6 +67,14 @@ equalBtn.addEventListener('click', () => {
   console.log(calculator())
 })
 
+restartBtn.addEventListener('click', () => {
+    display.textContent = 0;
+    currentNum = '';
+    firstNum = 0;
+    lastNum = 0;
+    result = 0;
+})
+
 
 let calculator = () => {
   switch(operator) {
@@ -83,3 +96,4 @@ let calculator = () => {
     return display.textContent = result
 }
                     
+
