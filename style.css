@@ -33,11 +33,6 @@ body {
     flex-direction: column;
 }
 
-.display {
-    padding: 7rem; 
-    margin-bottom: 2rem;
-    position: relative;
-}
 
 .btn-container {
     display: grid;
@@ -107,11 +102,21 @@ body {
     background-color: rgb(169, 21, 21);
 }
 
+.display {
+    padding: 7rem; 
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
 .display-content{
     position: absolute;
-    font-size: 3.5rem;
     bottom: -1rem;
     right: 3rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
 }
 
 .display-content h1 {
