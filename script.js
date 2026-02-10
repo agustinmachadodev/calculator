@@ -1,57 +1,48 @@
-const numBtn = document.querySelectorAll('.numBtn')
+const numBtn = document.querySelectorAll('.numBtn');
 
-const addBtn = document.querySelector('.add')
-const substractBtn = document.querySelector('.substract')
-const multiplyBtn = document.querySelector('.multiply')
+const addBtn = document.querySelector('.add');
+const substractBtn = document.querySelector('.substract');
+const multiplyBtn = document.querySelector('.multiply');
 const divideBtn = document.querySelector('.divide');
 
 const display = document.querySelector('h1');
 display.textContent = 0;
 
 const equalBtn = document.querySelector('.equal');
-
 const restartBtn = document.querySelector('.restart');
-
-const deleteBtn = document.querySelector('.deleteBtn');
-
 
 let firstNum = null;
 let currentNum = '';
 let operator = '';
-let result = 0;
+let result = null;
 
-//Controla si el próximo número empieza de cero
-let shouldResetDisplay = false
+let shouldResetDisplay = false;
 
 
 numBtn.forEach(num => {
+  num.addEventListener('click', () => {
+    if (shouldResetDisplay) {
+      currentNum = num.textContent;
+      shouldResetDisplay = false;
+    } else {
+      currentNum += num.textContent;
+    }
+    display.textContent = currentNum;
+  });
+});
 
-    num.addEventListener('click', () => {
-
-      if(shouldResetDisplay) {
-        currentNum = num.textContent;
-        shouldResetDisplay = false
-      
-      } else {
-        currentNum += num.textContent;
-      }
-      display.textContent = currentNum;
-    })
-})
 
 function handleOperator(op) {
 
-  // Si hay una operación completa, calcular antes (operaciones encadenadas)
-  if (firstNum !== null && operator !== '' && currentNum !== '') {
+  if (operator && currentNum !== '') {
     calculator();
   }
 
-  // Si el usuario aprieta operadores consecutivos,
-  // solo se reemplaza el operador (NO se calcula)
   operator = op;
-  firstNum = Number(currentNum);
+  firstNum = result !== null ? result : Number(currentNum);
+  currentNum = '';
   shouldResetDisplay = true;
-  display.textContent = operator;
+  display.textContent = op;
 }
 
 addBtn.addEventListener('click', () => handleOperator('+'));
@@ -59,14 +50,16 @@ substractBtn.addEventListener('click', () => handleOperator('-'));
 multiplyBtn.addEventListener('click', () => handleOperator('x'));
 divideBtn.addEventListener('click', () => handleOperator('÷'));
 
+
 equalBtn.addEventListener('click', () => {
-  if (firstNum === null || operator === '' || currentNum === '') return;
+  if (!operator || currentNum === '') return;
 
   calculator();
   operator = '';
   firstNum = null;
   shouldResetDisplay = true;
 });
+
 
 restartBtn.addEventListener('click', () => {
   display.textContent = 0;
@@ -78,42 +71,34 @@ restartBtn.addEventListener('click', () => {
 });
 
 
-let calculator = () => {
-
+function calculator() {
   const secondNum = Number(currentNum);
 
-  // División por 0
   if (operator === '÷' && secondNum === 0) {
-    display.textContent = '¿Dividir por 0?';
+    display.textContent = 'Error';
     firstNum = null;
     currentNum = '';
     operator = '';
+    result = null;
     shouldResetDisplay = true;
     return;
   }
 
-  switch(operator) {
+  switch (operator) {
     case '+':
       result = firstNum + secondNum;
-      break
-      case '-':
+      break;
+    case '-':
       result = firstNum - secondNum;
       break;
-      case 'x':
+    case 'x':
       result = firstNum * secondNum;
       break;
-      case '÷':
+    case '÷':
       result = firstNum / secondNum;
       break;
-      default:
-      result = '';
-    }
+  }
 
-    // Redondeo de decimales largos
-    result = Math.round(result * 100000) / 100000;
-
-    display.textContent = result;
-    currentNum = '';
+  result = Math.round(result * 100000) / 100000;
+  display.textContent = result;
 }
-                    
-
